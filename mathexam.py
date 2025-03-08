@@ -2,14 +2,25 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import random
 import os
+import sys
 
 # Папка с картинками
 assets_folder = "assets"
 
+# Функция получения правильного пути к файлу
+def resource_path(relative_path):
+    """Возвращает правильный путь к файлам в зависимости от того, упакован ли проект."""
+    try:
+        # PyInstaller создаёт временную директорию, где лежат все ресурсы
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
 # Функция уменьшения текстуры воды (если нужно)
 def resize_water_texture():
-    water_image_path = os.path.join(assets_folder, "water.png")
-    resized_water_image_path = os.path.join(assets_folder, "water_resized.png")
+    water_image_path = resource_path(os.path.join(assets_folder, "water.png"))
+    resized_water_image_path = resource_path(os.path.join(assets_folder, "water_resized.png"))
 
     if os.path.exists(water_image_path):
         try:
@@ -45,7 +56,7 @@ score = 0
 
 # Функция для загрузки изображений
 def load_image(image_name):
-    image_path = os.path.join(assets_folder, image_name)
+    image_path = resource_path(os.path.join(assets_folder, image_name))
     if os.path.exists(image_path):
         try:
             img = Image.open(image_path)

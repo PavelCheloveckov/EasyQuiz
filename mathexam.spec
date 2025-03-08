@@ -5,7 +5,7 @@ a = Analysis(
     ['mathexam.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('assets\\\\*.png', 'assets')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
